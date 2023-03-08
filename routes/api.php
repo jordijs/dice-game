@@ -22,10 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 */
 
 
-Route::post('/register', [UserAuthController::class, 'register']);
+Route::post('/players', [UserAuthController::class, 'register']);
 
-Route::post('/login', [UserAuthController::class, 'login']);
-
-Route::apiResource('/game', GameController::class)->middleware('auth:api');
+Route::apiResource('/game', GameController::class)->middleware('role:admin');
 
 Route::apiResource('/players', UserController::class)->middleware('auth:api');
