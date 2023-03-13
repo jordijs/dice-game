@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/players', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
+<<<<<<< HEAD
 Route::get('/players', [PlayerController::class, 'index'])->middleware('auth:api');
+=======
+Route::get('players/', [PlayerController::class, 'index'])->middleware('role:Admin');
+Route::group(['middleware' => ['role:Admin']], [PlayerController::class, 'index']);
+>>>>>>> parent of 27895b2... Redoing api
 
 //Route::apiResource('/game', GameController::class)->middleware('role:admin');
 

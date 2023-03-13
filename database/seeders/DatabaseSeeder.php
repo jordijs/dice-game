@@ -18,16 +18,16 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test Admin User',
             'email' => 'test@example.com',
-        ])->assignRole('admin');
+        ])->assignRole('Admin');
 
         User::factory()->create([
             'name' => 'Test Player User',
             'email' => 'player1@example.com',
-        ])->assignRole('player');
+        ])->assignRole('Player');
 
         User::factory()->create([
             'name' => 'Test 2nd  Player User',
             'email' => 'player2@example.com',
-        ])->assignRole('player');
+        ])->assignRole('Player');
     }
 }
