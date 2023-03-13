@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PlayerResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PlayerController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $players = User::role('player')->get();
+        //TESTING to simplify $players = User::role('player')->get();
+        $players = User::all();
         return response([ 'players' => 
-        PlayerResource::collection($players), 
+        UserResource::collection($players), 
         'message' => 'Successful'], 200);
     }
 
