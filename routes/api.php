@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/players', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
-Route::get('players/', [PlayerController::class, 'index'])->middleware('role:Admin');
-Route::group(['middleware' => ['role:Admin']], [PlayerController::class, 'index']);
-
+Route::get('/players', [UserController::class, 'indexPlayers'])->middleware('auth:api');
+//Route::get('/user', [UserController::class, 'index']);
 //Route::apiResource('/game', GameController::class)->middleware('role:admin');
 
 //Route::apiResource('/players', UserController::class)->middleware('auth:api');
