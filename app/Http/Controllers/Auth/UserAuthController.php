@@ -23,7 +23,7 @@ class UserAuthController extends Controller
 
         $data['password'] = bcrypt($request->password);
 
-        $user = User::create($data)->assignRole('Player');
+        $user = User::create($data)->assignRole('player');
 
         $token = $user->createToken('API Token')->accessToken;
 
