@@ -27,13 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/players', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
-<<<<<<< Updated upstream
-Route::get('/players', [UserController::class, 'indexPlayers'])->middleware('auth:api');
-//Route::get('/user', [UserController::class, 'index']);
-=======
 Route::get('/players', [PlayerController::class, 'index'])->middleware('auth:api');
 
->>>>>>> Stashed changes
 //Route::apiResource('/game', GameController::class)->middleware('role:admin');
 
 //Route::apiResource('/players', UserController::class)->middleware('auth:api');
