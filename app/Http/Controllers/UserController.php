@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< Updated upstream:app/Http/Controllers/UserController.php
+=======
+use App\Http\Resources\GameResource;
+use App\Http\Resources\PlayerResource;
+use App\Models\Game;
+use App\Models\User;
+>>>>>>> Stashed changes:app/Http/Controllers/PlayerController.php
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserResource;
