@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -47,4 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function games(): HasMany
+    {
+        return $this->hasMany(Game::class);
+    }
 }

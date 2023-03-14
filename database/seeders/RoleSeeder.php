@@ -14,11 +14,16 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::create(['name' => 'admin']);
-        $player = Role::create(['name' => 'player']);
 
-        Permission::create(['name' => 'admin.viewAllPlayers'])->assignRole($admin);
-        Permission::create(['name' => 'admin.deleteAllGamesByPlayer'])->assignRole($admin);
-        Permission::create(['name' => 'player.viewMyGames'])->assignRole($player);
+        $roleAdmin = Role::create(['name' => 'admin']);
+        $rolePlayer = Role::create(['name' => 'player']);
+
+        //Permission::create(['name' => 'list-players']);
+
+        //$roleAdmin->givePermissionTo('list-players');
+        //Permission::create(['name' => 'admin.viewAllPlayers'])->assignRole($roleAdmin);
+        //Permission::create(['name' => 'admin.deleteAllGamesByPlayer'])->assignRole($roleAdmin);
+        //Permission::create(['name' => 'player.viewMyGames'])->assignRole($rolePlayer);
+
     }
 }

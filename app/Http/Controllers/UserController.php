@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PlayerResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PlayerController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $players = User::role('player')->get();
+        //TESTING to simplify $players = User::role('player')->get();
+        $players = User::all();
         return response([ 'players' => 
-        PlayerResource::collection($players), 
+        UserResource::collection($players), 
         'message' => 'Successful'], 200);
     }
 
@@ -50,17 +52,42 @@ class PlayerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($userId)
     {
-        //
+        $user = User::findOrFail($userId);
+        return response([ 'user' => new 
+        UserResource($user), 'message' => 'Success'], 200);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function updateName(Request $request, $userId)
     {
-        //
+        {
+
+
+            $data = $request->validate([
+                'name' => 'max:255|unique:users',
+            ]);
+
+            if ($data == null) {
+                return response(['message' => 'You should send a name field'], 400);
+            }
+            //Conversion of empty names into 'anonymous'
+            if ($data['name'] == null) {
+                $data['name'] = "anonymous";
+            }
+
+            $user = User::findOrFail($userId);
+
+
+            $user->name = $data['name'];
+            $user->save();
+    
+            return response([ 'user' => new UserResource($user), 'message' => 'Success'], 200);
+        }
     }
 
     /**

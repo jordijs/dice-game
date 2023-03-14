@@ -24,23 +24,33 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function makeGame(Request $request)
     {
-        $data = $request->all();
+        //Retrieving data
+        $id_user = $request->user()->id;
 
-        $validator = Validator::make($data, [
-            'id_user' => 'required',
-            'dice1Value' => 'required|max:1',
-            'dice2Value' => 'required|max:1',
-        ]);
+        $dice1Value = rand(1,6);
 
-        if($validator->fails()){
-            return response(['error' => $validator->errors(), 
-            'Validation Error']);
+        $dice2Value = rand(1,6);
+
+        if (($dice1Value + $dice2Value) == 7) {
+            $resultWin = true;
+        } else {
+            $resultWin = false;
         }
 
-        $game = Game::create($data);
+        
+        //Creating game
+        $game = new Game;
 
+        //Passing data to the game
+        $game->id_user = $id_user;
+        $game->dice1Value = $dice1Value;
+        $game->dice2Value = $dice2Value;
+        $game->resultWin = $resultWin;
+        $game->save();
+
+        //Giving response to the user
         return response([ 'game' => new 
         GameResource($game), 
         'message' => 'Success'], 200);
@@ -71,10 +81,13 @@ class GameController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Game $game)
+    public function deleteGamesByPlayer(Request $request)
     {
-        $game->delete();
+        //Retrieving id of user
+        $id_user = $request->user()->id;
 
-        return response(['message' => 'Game deleted']);
+        $deleted = Game::where('id_user', $id_user)->delete();
+
+        return response(['message' => 'All your games have been deleted']);
     }
 }
