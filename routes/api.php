@@ -44,9 +44,8 @@ Route::post('/players/{id}/games', [GameController::class, 'makeGame'])->middlew
 //great!!!!!
 
 //DELETE /players/{id}/games: elimina les tirades del jugador/a. //THIS PLAYER
-Route::post('/players/{id}/games', [GameController::class, 'makeGame'])->middleware('auth:api', 'selfplayer');
-
-//to-do
+Route::delete('/players/{id}/games', [GameController::class, 'deleteGamesByPlayer'])->middleware('auth:api', 'selfplayer');
+//DONE. Need to check if effectively deleted
 
 //GET /players: retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits 
 Route::get('/players', [UserController::class, 'index'])->middleware(['auth:api', 'role:admin']);
