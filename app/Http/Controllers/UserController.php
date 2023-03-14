@@ -52,17 +52,33 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($userId)
     {
-        //
+        $user = User::findOrFail($userId);
+        return response([ 'user' => new 
+        UserResource($user), 'message' => 'Success'], 200);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function updateName(Request $request, $userId)
     {
-        //
+        {
+            
+            $data = $request->validate([
+                'name' => 'max:255|unique:users',
+            ]);
+
+            $user = User::findOrFail($userId);
+
+
+            $user->name = $data['name'];
+            $user->save();
+    
+            return response([ 'user' => new UserResource($user), 'message' => 'Success'], 200);
+        }
     }
 
     /**
