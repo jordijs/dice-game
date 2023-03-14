@@ -68,7 +68,9 @@ Route::get('/players', [UserController::class, 'index'])->middleware(['auth:api'
 
 
 
+
 //Route::group(['middleware' => ['role:Admin']], [UserController::class, 'index']);
+
 
 //Route::apiResource('/game', GameController::class)->middleware('role:admin');
 

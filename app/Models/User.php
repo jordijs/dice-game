@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 use Spatie\Permission\Traits\HasRoles;
 
@@ -15,6 +17,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    //Adding to avoid problem "There is no role named `player`.",
+    protected $guard_name = 'api';
+
+    
     /**
      * The attributes that are mass assignable.
      *
