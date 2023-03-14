@@ -37,21 +37,32 @@ Route::get('/players/{id}', [UserController::class, 'show'])->middleware(['auth:
 
 //PUT /players/{id} : modifica el nom del jugador/a. //THIS PLAYER
 Route::put('/players/{id}', [UserController::class, 'updateName'])->middleware('auth:api', 'selfplayer');
-//works perfect! have to control error handling (no data sent)
+//works perfect! :D
 
 //POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels daus. //THIS PLAYER
+Route::post('/players/{id}/games', [GameController::class, 'makeGame'])->middleware('auth:api', 'selfplayer');
+//great!!!!!
+
 //DELETE /players/{id}/games: elimina les tirades del jugador/a. //THIS PLAYER
+Route::post('/players/{id}/games', [GameController::class, 'makeGame'])->middleware('auth:api', 'selfplayer');
+
+//to-do
 
 //GET /players: retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits 
 Route::get('/players', [UserController::class, 'index'])->middleware(['auth:api', 'role:admin']);
 //works. To improve: return only user where role:player
 
 //GET /players/{id}/games: retorna el llistat de jugades per un jugador/a. //THIS PLAYER
+//to-do
 
 //GET /players/ranking: retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits. //ADMIN
-//GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit. //ADMIN
-//GET /players/ranking/winner: retorna el jugador/a amb millor percentatge d’èxit. //ADMIN
+//to-do
 
+//GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit. //ADMIN
+//to-do
+
+//GET /players/ranking/winner: retorna el jugador/a amb millor percentatge d’èxit. //ADMIN
+//to-do
 
 
 

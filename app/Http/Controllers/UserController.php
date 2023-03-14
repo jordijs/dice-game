@@ -66,10 +66,19 @@ class UserController extends Controller
     public function updateName(Request $request, $userId)
     {
         {
-            
+
+
             $data = $request->validate([
                 'name' => 'max:255|unique:users',
             ]);
+
+            if ($data == null) {
+                return response(['message' => 'You should send a name field'], 400);
+            }
+            //Conversion of empty names into 'anonymous'
+            if ($data['name'] == null) {
+                $data['name'] = "anonymous";
+            }
 
             $user = User::findOrFail($userId);
 
