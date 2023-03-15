@@ -13,6 +13,7 @@ return [
     |
     */
 
+    //Changed default 'guard' => 'web' trying to fix bug
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',

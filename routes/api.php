@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //POST /players : crea un jugador/a.
 Route::post('/players', [UserAuthController::class, 'register']);
+
 //works perfect
 Route::post('/login', [UserAuthController::class, 'login']);
 //works perfect
@@ -48,10 +49,11 @@ Route::delete('/players/{id}/games', [GameController::class, 'deleteGamesByPlaye
 //DONE. Need to check if effectively deleted
 
 //GET /players: retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits 
-Route::get('/players', [UserController::class, 'index'])->middleware(['auth:api', 'role:admin']);
-//works. To improve: return only user where role:player
+Route::get('/players', [UserController::class, 'listPlayers'])->middleware(['auth:api', 'role:admin']);
+//works.
 
 //GET /players/{id}/games: retorna el llistat de jugades per un jugador/a. //THIS PLAYER
+Route::get('players/{id}/games', [GameController::class, 'showGamesByPlayer'])->middleware(['auth:api', 'selfplayer']);
 //to-do
 
 //GET /players/ranking: retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits. //ADMIN

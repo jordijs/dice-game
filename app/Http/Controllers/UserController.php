@@ -13,10 +13,10 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function listPlayers()
     {
         //TESTING to simplify $players = User::role('player')->get();
-        $players = User::all();
+        $players = User::role('player')->get();
         return response([ 'players' => 
         UserResource::collection($players), 
         'message' => 'Successful'], 200);
@@ -32,7 +32,7 @@ class UserController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'id_user' => 'required',
+            'user_id' => 'required',
             'dice1Value' => 'required|max:1',
             'dice2Value' => 'required|max:1',
         ]);

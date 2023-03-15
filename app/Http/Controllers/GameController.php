@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GameResource;
@@ -27,7 +28,7 @@ class GameController extends Controller
     public function makeGame(Request $request)
     {
         //Retrieving data
-        $id_user = $request->user()->id;
+        $user_id = $request->user()->id;
 
         $dice1Value = rand(1,6);
 
@@ -44,7 +45,7 @@ class GameController extends Controller
         $game = new Game;
 
         //Passing data to the game
-        $game->id_user = $id_user;
+        $game->user_id = $user_id;
         $game->dice1Value = $dice1Value;
         $game->dice2Value = $dice2Value;
         $game->resultWin = $resultWin;
@@ -59,10 +60,17 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Game $game)
+    public function showGamesByPlayer(Request $request)
     {
-        return response([ 'game' => new 
-        GameResource($game), 'message' => 'Success'], 200);
+
+        //Retrieving id of user
+        $user_id = $request->user()->id;
+
+        
+        $gamesByUser = User::find($user_id)->games;
+       
+        return response([ 'games' => new 
+        GameResource($gamesByUser), 'message' => 'Success'], 200);
 
     }
 
@@ -84,9 +92,9 @@ class GameController extends Controller
     public function deleteGamesByPlayer(Request $request)
     {
         //Retrieving id of user
-        $id_user = $request->user()->id;
+        $user_id = $request->user()->id;
 
-        $deleted = Game::where('id_user', $id_user)->delete();
+        $deleted = Game::where('user_id', $user_id)->delete();
 
         return response(['message' => 'All your games have been deleted']);
     }
