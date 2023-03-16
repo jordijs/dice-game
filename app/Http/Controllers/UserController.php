@@ -17,6 +17,8 @@ class UserController extends Controller
     {
         //TESTING to simplify $players = User::role('player')->get();
         $players = User::role('player')->get();
+
+
         return response([ 'players' => 
         UserResource::collection($players), 
         'message' => 'Successful'], 200);
@@ -90,6 +92,8 @@ class UserController extends Controller
         }
     }
 
+    
+
     /**
      * Remove the specified resource from storage.
      */
@@ -97,4 +101,22 @@ class UserController extends Controller
     {
         //
     }
+
+    
+    public function showPlayersRanking()
+    {
+        $players = User::role('player')->get();
+        foreach ($players as $player) {
+            array_push($allSuccessRates, $player->successRate);
+        }
+
+        $sumAllSuccessRates = array_sum($allSuccessRates);
+        $averageSuccessRate =  $sumAllSuccessRates / User::role('player')->count();
+        dd($averageSuccessRate);
+        return response([ 'players' => 
+        UserResource::collection($averageSuccessRate), 
+        'message' => 'Successful'], 200);
+    }
+    
+
 }

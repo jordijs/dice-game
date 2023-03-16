@@ -30,6 +30,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'playedGames',
+        'wonGames',
+        'successRate'
     ];
 
     /**
@@ -55,4 +58,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Game::class);
     }
+    
+
+
+
 }

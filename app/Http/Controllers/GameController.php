@@ -17,9 +17,11 @@ class GameController extends Controller
     public function index()
     {
         $games = Game::all();
-        return response([ 'games' => 
-        GameResource::collection($games), 
-        'message' => 'Successful'], 200);
+        return response([
+            'games' =>
+            GameResource::collection($games),
+            'message' => 'Successful'
+        ], 200);
     }
 
     /**
@@ -30,9 +32,9 @@ class GameController extends Controller
         //Retrieving data
         $user_id = $request->user()->id;
 
-        $dice1Value = rand(1,6);
+        $dice1Value = rand(1, 6);
 
-        $dice2Value = rand(1,6);
+        $dice2Value = rand(1, 6);
 
         if (($dice1Value + $dice2Value) == 7) {
             $resultWin = true;
@@ -40,21 +42,42 @@ class GameController extends Controller
             $resultWin = false;
         }
 
-        
+
         //Creating game
         $game = new Game;
 
-        //Passing data to the game
+        //Passing game results to the game
         $game->user_id = $user_id;
         $game->dice1Value = $dice1Value;
         $game->dice2Value = $dice2Value;
         $game->resultWin = $resultWin;
         $game->save();
 
+        //Store new game was played
+        $game->user->playedGames++;
+        $game->user->save();
+
+        //Saving game won to user and update successRate
+        if ($resultWin) {
+            //Add 1 game won
+            $game->user->wonGames++;
+            $game->user->save();
+        }
+
+        //Update successRate
+        $playedGames = $game->user->playedGames;
+        $wonGames = $game->user->wonGames;
+        $successRate = ($wonGames / $playedGames) * 100;
+        $game->user->successRate =  $successRate;
+        $game->user->save();
+
+
         //Giving response to the user
-        return response([ 'game' => new 
-        GameResource($game), 
-        'message' => 'Success'], 200);
+        return response([
+            'game' => new
+                GameResource($game),
+            'message' => 'Success'
+        ], 200);
     }
 
     /**
@@ -66,12 +89,10 @@ class GameController extends Controller
         //Retrieving id of user
         $user_id = $request->user()->id;
 
-        
         $gamesByUser = User::find($user_id)->games;
-       
-        return response([ 'games' => new 
-        GameResource($gamesByUser), 'message' => 'Success'], 200);
 
+        return response(['games' => new
+            GameResource($gamesByUser), 'message' => 'Success'], 200);
     }
 
     /**
@@ -82,8 +103,8 @@ class GameController extends Controller
 
         $game->update($request->all());
 
-        return response([ 'game' => new 
-        GameResource($game), 'message' => 'Success'], 200);
+        return response(['game' => new
+            GameResource($game), 'message' => 'Success'], 200);
     }
 
     /**

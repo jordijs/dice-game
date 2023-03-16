@@ -27,10 +27,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //POST /players : crea un jugador/a.
 Route::post('/players', [UserAuthController::class, 'register']);
+//works
 
-//works perfect
 Route::post('/login', [UserAuthController::class, 'login']);
-//works perfect
+//works
+
+//GET /players/ranking: retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits. //ADMIN
+Route::get('/players/ranking', [UserController::class, 'showPlayersRanking'])->middleware(['auth:api', 'role:admin']);
+//doing
 
 //this one below is not required by the app, but useful for testing
 Route::get('/players/{id}', [UserController::class, 'show'])->middleware(['auth:api', 'selfplayer']);
@@ -38,26 +42,26 @@ Route::get('/players/{id}', [UserController::class, 'show'])->middleware(['auth:
 
 //PUT /players/{id} : modifica el nom del jugador/a. //THIS PLAYER
 Route::put('/players/{id}', [UserController::class, 'updateName'])->middleware('auth:api', 'selfplayer');
-//works perfect! :D
+//works
 
 //POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels daus. //THIS PLAYER
 Route::post('/players/{id}/games', [GameController::class, 'makeGame'])->middleware('auth:api', 'selfplayer');
-//great!!!!!
+//works
 
 //DELETE /players/{id}/games: elimina les tirades del jugador/a. //THIS PLAYER
 Route::delete('/players/{id}/games', [GameController::class, 'deleteGamesByPlayer'])->middleware('auth:api', 'selfplayer');
-//DONE. Need to check if effectively deleted
+//works
 
 //GET /players: retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits 
 Route::get('/players', [UserController::class, 'listPlayers'])->middleware(['auth:api', 'role:admin']);
 //works.
 
 //GET /players/{id}/games: retorna el llistat de jugades per un jugador/a. //THIS PLAYER
-Route::get('players/{id}/games', [GameController::class, 'showGamesByPlayer'])->middleware(['auth:api', 'selfplayer']);
-//to-do
+Route::get('/players/{id}/games', [GameController::class, 'showGamesByPlayer'])->middleware(['auth:api', 'selfplayer']);
+//works. would be better if instead of 0/1 the boolean is true/false. would be better if when empty returns "you have no games"
 
-//GET /players/ranking: retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits. //ADMIN
-//to-do
+
+
 
 //GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit. //ADMIN
 //to-do
