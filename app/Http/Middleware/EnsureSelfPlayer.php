@@ -22,7 +22,7 @@ class EnsureSelfPlayer
         $idAuthenticated = $request->user()->id;
 
         if (! ($idRequested == $idAuthenticated)) {
-            throw new Exception("Acces denied. You can only watch your own data", 403);
+            throw new Exception("Acces denied. You can only access your own data", 403);
         }
         return $next($request);
     }

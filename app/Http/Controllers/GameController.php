@@ -24,6 +24,8 @@ class GameController extends Controller
         ], 200);
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      */
@@ -36,13 +38,14 @@ class GameController extends Controller
 
         $dice2Value = rand(1, 6);
 
-        if (($dice1Value + $dice2Value) == 7) {
-            $resultWin = true;
+        $resultWin = $this->gameLogic($dice1Value, $dice2Value);
+
+        if ($resultWin) {
+            $resultString = "You won!";
         } else {
-            $resultWin = false;
+            $resultString = "You lost!";
         }
-
-
+ 
         //Creating game
         $game = new Game;
 
@@ -76,9 +79,22 @@ class GameController extends Controller
         return response([
             'game' => new
                 GameResource($game),
-            'message' => 'Success'
+            'message' => 'First dice was ' . $dice1Value . ' and second was ' . $dice2Value . '. ' . $resultString
         ], 200);
     }
+
+    // Game logic
+
+    private function gameLogic ($dice1Value, $dice2Value): bool {
+        if (($dice1Value + $dice2Value) == 7) {
+            $resultWin = true;
+        } else {
+            $resultWin = false;
+        }
+
+        return $resultWin;
+    }
+
 
     /**
      * Display the specified resource.
