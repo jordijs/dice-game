@@ -33,7 +33,7 @@ Route::post('/login', [UserAuthController::class, 'login']);
 //works
 
 //GET /players/ranking: retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits. //ADMIN
-Route::get('/players/ranking', [UserController::class, 'showPlayersRanking'])->middleware(['auth:api', 'role:admin']);
+Route::get('/players/ranking', [UserController::class, 'getPlayersRanking'])->middleware(['auth:api', 'role:admin']);
 //doing
 
 //this one below is not required by the app, but useful for testing

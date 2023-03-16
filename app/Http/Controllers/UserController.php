@@ -109,18 +109,22 @@ class UserController extends Controller
     }
 
     
-    public function showPlayersRanking()
+    public function getPlayersRanking()
     {
         $players = User::role('player')->get();
+        $allSuccessRates = array();
+
         foreach ($players as $player) {
             array_push($allSuccessRates, $player->successRate);
         }
 
         $sumAllSuccessRates = array_sum($allSuccessRates);
-        $averageSuccessRate =  $sumAllSuccessRates / User::role('player')->count();
-        dd($averageSuccessRate);
-        return response([ 'players' => 
-        UserResource::collection($averageSuccessRate), 
+
+        $countPlayers = User::role('player')->count();
+
+        $averageSuccessRate =  $sumAllSuccessRates / $countPlayers;
+
+        return response([ 'average success rate' => $averageSuccessRate, 
         'message' => 'Successful'], 200);
     }
     
