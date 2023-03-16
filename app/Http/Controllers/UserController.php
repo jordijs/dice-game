@@ -77,10 +77,8 @@ class UserController extends Controller
             if ($data == null) {
                 return response(['message' => 'You should send a name field'], 400);
             }
-            //Conversion of empty names into 'anonymous'
-            if ($data['name'] == null) {
-                $data['name'] = "anonymous";
-            }
+
+            $data = $this->emptyNameToAnonymous($data);
 
             $user = User::findOrFail($userId);
 
@@ -92,6 +90,14 @@ class UserController extends Controller
         }
     }
 
+    //Conversion of empty names into 'anonymous'
+    private function emptyNameToAnonymous ($data) : array {
+        
+        if ($data['name'] == null) {
+            $data['name'] = "anonymous";
+        }
+        return $data;
+    }
     
 
     /**
