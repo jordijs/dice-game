@@ -61,13 +61,13 @@ Route::get('/players/{id}/games', [GameController::class, 'showGamesByPlayer'])-
 //works. would be better if instead of 0/1 the boolean is true/false. would be better if when empty returns "you have no games"
 
 
-
-
 //GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit. //ADMIN
-//to-do
+Route::get('/players/ranking/loser', [UserController::class, 'getLoser'])->middleware(['auth:api', 'role:admin']);
+//doing
 
 //GET /players/ranking/winner: retorna el jugador/a amb millor percentatge d’èxit. //ADMIN
-//to-do
+Route::get('/players/ranking/winner', [UserController::class, 'getWinner'])->middleware(['auth:api', 'role:admin']);
+//doing
 
 
 

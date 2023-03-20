@@ -122,6 +122,28 @@ class UserController extends Controller
         return response([ 'ranking' => PlayerRankingResource::collection($playersWithRank), 
         'message' => 'Successful'], 200);
     }
+
+
+    public function getLoser()
+    {
+        $players = User::role('player')->orderBy('successRate', 'asc')->take(1)->get();
+
+        return response([ 'ranking' => PlayerRankingResource::collection($players), 
+        'message' => 'Successful'], 200);
+    }
+
+    public function getWinner()
+    {
+        $players = User::role('player')->orderBy('successRate', 'desc')->get();
+
+        $playersWithRank = $players->map(function ($player, $i) {
+            $player->rank = $i + 1;
+            return $player;
+        });
+
+        return response([ 'ranking' => PlayerRankingResource::collection($playersWithRank), 
+        'message' => 'Successful'], 200);
+    }
     
 
 }
