@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PlayerRankingResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -111,20 +112,14 @@ class UserController extends Controller
     
     public function getPlayersRanking()
     {
-        $players = User::role('player')->get();
-        $allSuccessRates = array();
+        $players = User::role('player')->orderBy('successRate', 'desc')->get();
 
-        foreach ($players as $player) {
-            array_push($allSuccessRates, $player->successRate);
-        }
+        $playersWithRank = $players->map(function ($player, $i) {
+            $player->rank = $i + 1;
+            return $player;
+        });
 
-        $sumAllSuccessRates = array_sum($allSuccessRates);
-
-        $countPlayers = User::role('player')->count();
-
-        $averageSuccessRate =  $sumAllSuccessRates / $countPlayers;
-
-        return response([ 'average success rate' => $averageSuccessRate, 
+        return response([ 'ranking' => PlayerRankingResource::collection($playersWithRank), 
         'message' => 'Successful'], 200);
     }
     
