@@ -13,35 +13,37 @@ class GameTest extends TestCase
 {
     use WithoutMiddleware;
 
+    /** @test  */
     public function test_post_game(): void
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
-        ->withSession(['banned' => false])
-        ->post('/api/players/{id}/games');
+            ->withSession(['banned' => false])
+            ->post('/api/players/{id}/games');
 
         $response->assertStatus(200);
     }
 
+    /** @test  */
     public function test_delete_games(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-        ->withSession(['banned' => false])
-        ->delete('/api/players/{id}/games');
+            ->withSession(['banned' => false])
+            ->delete('/api/players/{id}/games');
 
         $response->assertStatus(200);
     }
 
+    /** @test  */
     public function test_get_games(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-        ->withSession(['banned' => false])
-        ->get('/api/players/{id}/games');
+            ->withSession(['banned' => false])
+            ->get('/api/players/{id}/games');
 
         $response->assertStatus(200);
     }
-
 }

@@ -11,6 +11,7 @@ class RankingTest extends TestCase
 {
     use WithoutMiddleware;
 
+    /** @test  */
     public function test_get_players_ranking(): void
     {
         $response = $this->get('/api/players/ranking');
@@ -18,6 +19,7 @@ class RankingTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /** @test  */
     public function test_get_players_ranking_loser(): void
     {
         $response = $this->get('/api/players/ranking/loser');
@@ -25,6 +27,7 @@ class RankingTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /** @test  */
     public function test_get_players_ranking_winner(): void
     {
         $response = $this->get('/api/players/ranking/winner');

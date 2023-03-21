@@ -32,10 +32,8 @@ class UserTest extends TestCase
     }
 
     /** @test  */
-
     public function creating_user_with_existing_name_and_email_displays_validation_errors()
     {
-
         $response = $this->post('/api/players', [
             'name' => 'Mister Player',
             'email' => 'player@test.com',
@@ -72,10 +70,8 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function test_get_players_id_works()
+    public function test_get_players()
     {
-
-
         $response = $this->get('/api/players/');
 
         $response->assertOk();

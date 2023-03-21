@@ -19,7 +19,6 @@ class GameResource extends JsonResource
             $resultString = "Won";
         } else $resultString = "Lost";
 
-
         return [
             'Game Number' => $this->id,
             'Dice 1' => $this->dice1Value,
