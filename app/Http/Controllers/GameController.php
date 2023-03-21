@@ -11,24 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $games = Game::all();
-        return response([
-            'games' =>
-            GameResource::collection($games),
-            'message' => 'Successful'
-        ], 200);
-    }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function makeGame(Request $request)
     {
         //Retrieving data
@@ -45,7 +27,7 @@ class GameController extends Controller
         } else {
             $resultString = "You lost!";
         }
- 
+
         //Creating game
         $game = new Game;
 
@@ -84,8 +66,8 @@ class GameController extends Controller
     }
 
     // Game logic
-
-    private function gameLogic ($dice1Value, $dice2Value): bool {
+    private function gameLogic($dice1Value, $dice2Value): bool
+    {
         if (($dice1Value + $dice2Value) == 7) {
             $resultWin = true;
         } else {
@@ -95,37 +77,21 @@ class GameController extends Controller
         return $resultWin;
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function showGamesByPlayer(Request $request)
     {
-
         //Retrieving id of user
         $user_id = $request->user()->id;
 
         $gamesByUser = User::find($user_id)->games;
 
-        return response(['games' => new
-            GameResource($gamesByUser), 'message' => 'Success'], 200);
+        if (sizeof($gamesByUser) == 0) {
+            return response(['message' => 'You have no games'], 200);
+        } else {
+            return response(['Your games' =>
+            GameResource::collection($gamesByUser), 'message' => 'Success'], 200);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Game $game)
-    {
-
-        $game->update($request->all());
-
-        return response(['game' => new
-            GameResource($game), 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function deleteGamesByPlayer(Request $request)
     {
         //Retrieving id of user
@@ -133,6 +99,10 @@ class GameController extends Controller
 
         $deleted = Game::where('user_id', $user_id)->delete();
 
-        return response(['message' => 'All your games have been deleted']);
+        if ($deleted) {
+            return response(['message' => 'All your games have been deleted']);
+        } else {
+            return response(['message' => 'There was a problem deleting your games']);
+        }
     }
 }

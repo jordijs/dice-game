@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\EnsureSelfPlayer;
 
 
 
@@ -27,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //POST /players : crea un jugador/a.
 Route::post('/players', [UserAuthController::class, 'register']);
-//works
+//works     
 
 Route::post('/login', [UserAuthController::class, 'login']);
 //works
@@ -58,8 +57,7 @@ Route::get('/players', [UserController::class, 'listPlayers'])->middleware(['aut
 
 //GET /players/{id}/games: retorna el llistat de jugades per un jugador/a. //THIS PLAYER
 Route::get('/players/{id}/games', [GameController::class, 'showGamesByPlayer'])->middleware(['auth:api', 'selfplayer']);
-//works. would be better if instead of 0/1 the boolean is true/false. would be better if when empty returns "you have no games"
-
+//works.  would be better if when empty returns "you have no games"
 
 //GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit. //ADMIN
 Route::get('/players/ranking/loser', [UserController::class, 'getLoser'])->middleware(['auth:api', 'role:admin']);
@@ -68,18 +66,3 @@ Route::get('/players/ranking/loser', [UserController::class, 'getLoser'])->middl
 //GET /players/ranking/winner: retorna el jugador/a amb millor percentatge d’èxit. //ADMIN
 Route::get('/players/ranking/winner', [UserController::class, 'getWinner'])->middleware(['auth:api', 'role:admin']);
 //works
-
-
-
-
-
-
-
-//Route::group(['middleware' => ['role:Admin']], [UserController::class, 'index']);
-
-
-//Route::apiResource('/game', GameController::class)->middleware('role:admin');
-
-//Route::apiResource('/players', UserController::class)->middleware('auth:api');
-
-//Route::apiResource('/players', UserController::class);

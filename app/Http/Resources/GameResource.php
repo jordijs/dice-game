@@ -14,6 +14,17 @@ class GameResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        //Parsing reultWin to String
+        if ($this->resultWin) {
+            $resultString = "Won";
+        } else $resultString = "Lost";
+
+
+        return [
+            'Game Number' => $this->id,
+            'Dice 1' => $this->dice1Value,
+            'Dice 2' => $this->dice2Value,
+            'Result' => $resultString,
+        ];
     }
 }
