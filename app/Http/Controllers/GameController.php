@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class GameController extends Controller
 {
     public function makeGame(Request $request)
+
     {
         //Retrieving data
         $user_id = $request->user()->id;

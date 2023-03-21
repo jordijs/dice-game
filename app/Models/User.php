@@ -19,7 +19,6 @@ class User extends Authenticatable
 
     //Adding to avoid problem "There is no role named `player`.",
     protected $guard_name = 'api';
-
     
     /**
      * The attributes that are mass assignable.

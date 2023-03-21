@@ -7,7 +7,6 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

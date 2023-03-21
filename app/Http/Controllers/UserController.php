@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
 
-    public function updateName(Request $request, $userId)
+    public function updateName(Request $request, $id)
     {
         $data = $request->validate([
             'name' => 'max:255|unique:users',
@@ -45,7 +45,7 @@ class UserController extends Controller
 
         $data = $this->emptyNameToAnonymous($data);
 
-        $user = User::findOrFail($userId);
+        $user = User::findOrFail($id);
 
         $user->name = $data['name'];
 
