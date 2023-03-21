@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PlayerRankingResource;
+use App\Http\Resources\PlayerWithoutRankResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -119,7 +120,7 @@ class UserController extends Controller
             return $player;
         });
 
-        return response([ 'ranking' => PlayerRankingResource::collection($playersWithRank), 
+        return response([ 'Ranking' => PlayerRankingResource::collection($playersWithRank), 
         'message' => 'Successful'], 200);
     }
 
@@ -128,20 +129,15 @@ class UserController extends Controller
     {
         $players = User::role('player')->orderBy('successRate', 'asc')->take(1)->get();
 
-        return response([ 'ranking' => PlayerRankingResource::collection($players), 
+        return response([ 'Loser' => PlayerWithoutRankResource::collection($players), 
         'message' => 'Successful'], 200);
     }
 
     public function getWinner()
     {
-        $players = User::role('player')->orderBy('successRate', 'desc')->get();
+        $players = User::role('player')->orderBy('successRate', 'desc')->take(1)->get();
 
-        $playersWithRank = $players->map(function ($player, $i) {
-            $player->rank = $i + 1;
-            return $player;
-        });
-
-        return response([ 'ranking' => PlayerRankingResource::collection($playersWithRank), 
+        return response([ 'Winner' => PlayerWithoutRankResource::collection($players), 
         'message' => 'Successful'], 200);
     }
     

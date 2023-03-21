@@ -63,11 +63,11 @@ Route::get('/players/{id}/games', [GameController::class, 'showGamesByPlayer'])-
 
 //GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit. //ADMIN
 Route::get('/players/ranking/loser', [UserController::class, 'getLoser'])->middleware(['auth:api', 'role:admin']);
-//doing
+//works
 
 //GET /players/ranking/winner: retorna el jugador/a amb millor percentatge d’èxit. //ADMIN
 Route::get('/players/ranking/winner', [UserController::class, 'getWinner'])->middleware(['auth:api', 'role:admin']);
-//doing
+//works
 
 
 
