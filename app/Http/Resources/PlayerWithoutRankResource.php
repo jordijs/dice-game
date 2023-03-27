@@ -17,7 +17,7 @@ class PlayerWithoutRankResource extends JsonResource
         return [
             'Name' => $this->name,
             'E-mail' => $this->email,
-            'Success rate' => $this->successRate . ' %',
+            'Success rate' => $this->success_rate . ' %',
         ];
     }
 }

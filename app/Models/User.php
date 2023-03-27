@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password',
         'played_games',
         'won_games',
-        'successRate'
+        'success_rate'
     ];
 
     /**

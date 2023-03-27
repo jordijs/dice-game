@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('played_games')->default(0);
             $table->integer('won_games')->default(0);
-            $table->float('successRate')->default(0);
+            $table->float('success_rate')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

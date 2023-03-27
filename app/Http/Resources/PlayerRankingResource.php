@@ -18,7 +18,7 @@ class PlayerRankingResource extends JsonResource
             'Rank' => $this->rank,
             'Name' => $this->name,
             'E-mail' => $this->email,
-            'Success rate' => $this->successRate . ' %',
+            'Success rate' => $this->success_rate . ' %',
         ];
     }
 }

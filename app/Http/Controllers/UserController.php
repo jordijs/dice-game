@@ -67,7 +67,7 @@ class UserController extends Controller
 
     public function getPlayersRanking()
     {
-        $players = User::role('player')->orderBy('successRate', 'desc')->get();
+        $players = User::role('player')->orderBy('success_rate', 'desc')->get();
 
         $playersWithRank = $players->map(function ($player, $i) {
             $player->rank = $i + 1;
@@ -83,7 +83,7 @@ class UserController extends Controller
 
     public function getLoser()
     {
-        $players = User::role('player')->orderBy('successRate', 'asc')->take(1)->get();
+        $players = User::role('player')->orderBy('success_rate', 'asc')->take(1)->get();
 
         return response([
             'Loser' => PlayerWithoutRankResource::collection($players),
@@ -94,7 +94,7 @@ class UserController extends Controller
 
     public function getWinner()
     {
-        $players = User::role('player')->orderBy('successRate', 'desc')->take(1)->get();
+        $players = User::role('player')->orderBy('success_rate', 'desc')->take(1)->get();
 
         return response([
             'Winner' => PlayerWithoutRankResource::collection($players),
