@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->tinyInteger('dice1Value');
-            $table->tinyInteger('dice2Value');
-            $table->boolean('resultWin');
+            $table->tinyInteger('dice1_value');
+            $table->tinyInteger('dice2_value');
+            $table->boolean('result_win');
             $table->timestamps();
         });
     }

@@ -14,12 +14,12 @@ class GameControllerTest extends TestCase
     {
         //Only works when gameLogic is set to public
         //1. Set values
-        $dice1Value = 5;
-        $dice2Value = 4;
+        $dice1_value = 5;
+        $dice2_value = 4;
 
         //2. Action performed
         $gameController = new GameController;
-        $response = $gameController->gameLogic($dice1Value, $dice2Value);
+        $response = $gameController->gameLogic($dice1_value, $dice2_value);
 
 
         //3. Verify
@@ -31,12 +31,12 @@ class GameControllerTest extends TestCase
         //NOTE: Only works when gameLogic is set to public
 
         //1. Set values
-        $dice1Value = 1;
-        $dice2Value = 6;
+        $dice1_value = 1;
+        $dice2_value = 6;
 
         //2. Action performed
         $gameController = new GameController;
-        $response = $gameController->gameLogic($dice1Value, $dice2Value);
+        $response = $gameController->gameLogic($dice1_value, $dice2_value);
 
 
         //3. Verify

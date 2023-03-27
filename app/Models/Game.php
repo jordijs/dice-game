@@ -11,7 +11,7 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'dice1Value', 'dice2Value', 'resultWin'
+        'user_id', 'dice1_value', 'dice2_value', 'result_win'
     ];
 
     public function user(): BelongsTo
