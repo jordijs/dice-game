@@ -15,7 +15,7 @@ class GameResource extends JsonResource
     public function toArray(Request $request): array
     {
         //Parsing reultWin to String
-        if ($this->resultWin) {
+        if ($this->result_win) {
             $resultString = "Won";
         } else $resultString = "Lost";
 

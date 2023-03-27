@@ -21,9 +21,9 @@ class GameController extends Controller
 
         $dice2_value = rand(1, 6);
 
-        $resultWin = $this->gameLogic($dice1_value, $dice2_value);
+        $result_win = $this->gameLogic($dice1_value, $dice2_value);
 
-        if ($resultWin) {
+        if ($result_win) {
             $resultString = "You won!";
         } else {
             $resultString = "You lost!";
@@ -36,7 +36,7 @@ class GameController extends Controller
         $game->user_id = $user_id;
         $game->dice1_value = $dice1_value;
         $game->dice2_value = $dice2_value;
-        $game->resultWin = $resultWin;
+        $game->result_win = $result_win;
         $game->save();
 
         //Store new game was played
@@ -44,7 +44,7 @@ class GameController extends Controller
         $game->user->save();
 
         //Saving game won to user and update successRate
-        if ($resultWin) {
+        if ($result_win) {
             //Add 1 game won
             $game->user->wonGames++;
             $game->user->save();
@@ -70,12 +70,12 @@ class GameController extends Controller
     private function gameLogic($dice1_value, $dice2_value): bool
     {
         if (($dice1_value + $dice2_value) == 7) {
-            $resultWin = true;
+            $result_win = true;
         } else {
-            $resultWin = false;
+            $result_win = false;
         }
 
-        return $resultWin;
+        return $result_win;
     }
 
     public function showGamesByPlayer(Request $request)
