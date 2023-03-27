@@ -30,7 +30,7 @@ class User extends Authenticatable
         'email',
         'password',
         'played_games',
-        'wonGames',
+        'won_games',
         'successRate'
     ];
 

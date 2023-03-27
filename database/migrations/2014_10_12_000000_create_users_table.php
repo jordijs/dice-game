@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('played_games')->default(0);
-            $table->integer('wonGames')->default(0);
+            $table->integer('won_games')->default(0);
             $table->float('successRate')->default(0);
             $table->string('password');
             $table->rememberToken();
