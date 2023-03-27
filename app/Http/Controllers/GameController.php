@@ -40,7 +40,7 @@ class GameController extends Controller
         $game->save();
 
         //Store new game was played
-        $game->user->playedGames++;
+        $game->user->played_games++;
         $game->user->save();
 
         //Saving game won to user and update successRate
@@ -51,9 +51,9 @@ class GameController extends Controller
         }
 
         //Update successRate
-        $playedGames = $game->user->playedGames;
+        $played_games = $game->user->played_games;
         $wonGames = $game->user->wonGames;
-        $successRate = ($wonGames / $playedGames) * 100;
+        $successRate = ($wonGames / $played_games) * 100;
         $game->user->successRate =  $successRate;
         $game->user->save();
 
