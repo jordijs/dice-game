@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PlayerRankingResource;
 use App\Http\Resources\PlayerWithoutRankResource;
+use App\Http\Resources\UserNameResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,13 +24,13 @@ class UserController extends Controller
         ], 200);
     }
 
-
+    
     public function show($userId)
     {
         $user = User::findOrFail($userId);
 
-        return response(['user' => new
-            UserResource($user), 'message' => 'Success'], 200);
+        return response(
+            ['User' => new UserResource($user), 'message' => 'Success'], 200);
     }
 
 
@@ -51,7 +52,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return response(['user' => new UserResource($user), 'message' => 'Success'], 200);
+        return response(['user' => new UserNameResource($user), 'message' => 'Success'], 200);
     }
 
 

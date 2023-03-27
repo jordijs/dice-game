@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PlayerResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,13 @@ class UserAuthController extends Controller
 
         $token = $user->createToken('API Token')->accessToken;
 
-        return response([ 'user' => $user, 'token' => $token]);
+        return response(
+            [
+                'user' => new PlayerResource($user),
+                'token' => $token, 
+                'message' => 'Success'
+            ], 200
+        );
     }
 
     public function login(Request $request)
@@ -44,7 +51,14 @@ class UserAuthController extends Controller
 
         $token = auth()->user()->createToken('API Token')->accessToken;
 
-        return response(['user' => auth()->user(), 'token' => $token]);
+
+        return response(
+            [
+                'user' => new PlayerResource(auth()->user()), 
+                'token' => $token,
+                'message' => 'Success'
+            ], 200
+        );
 
     }
 }
