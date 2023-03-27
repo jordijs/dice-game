@@ -17,11 +17,11 @@ class GameController extends Controller
         //Retrieving data
         $user_id = $request->user()->id;
 
-        $dice1Value = rand(1, 6);
+        $dice1_value = rand(1, 6);
 
         $dice2Value = rand(1, 6);
 
-        $resultWin = $this->gameLogic($dice1Value, $dice2Value);
+        $resultWin = $this->gameLogic($dice1_value, $dice2Value);
 
         if ($resultWin) {
             $resultString = "You won!";
@@ -34,7 +34,7 @@ class GameController extends Controller
 
         //Passing game results to the game
         $game->user_id = $user_id;
-        $game->dice1Value = $dice1Value;
+        $game->dice1_value = $dice1_value;
         $game->dice2Value = $dice2Value;
         $game->resultWin = $resultWin;
         $game->save();
@@ -62,14 +62,14 @@ class GameController extends Controller
         return response([
             'game' => new
                 GameResource($game),
-            'message' => 'First dice was ' . $dice1Value . ' and second was ' . $dice2Value . '. ' . $resultString
+            'message' => 'First dice was ' . $dice1_value . ' and second was ' . $dice2Value . '. ' . $resultString
         ], 200);
     }
 
     // Game logic
-    private function gameLogic($dice1Value, $dice2Value): bool
+    private function gameLogic($dice1_value, $dice2Value): bool
     {
-        if (($dice1Value + $dice2Value) == 7) {
+        if (($dice1_value + $dice2Value) == 7) {
             $resultWin = true;
         } else {
             $resultWin = false;

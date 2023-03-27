@@ -21,7 +21,7 @@ class GameResource extends JsonResource
 
         return [
             'Game Number' => $this->id,
-            'Dice 1' => $this->dice1Value,
+            'Dice 1' => $this->dice1_value,
             'Dice 2' => $this->dice2Value,
             'Result' => $resultString,
         ];
